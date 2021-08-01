@@ -167,6 +167,13 @@ Ravatar.renderScaled = function(containerElement, avatarProps, size, scale) {
 }
 
 Ravatar.renderSVG = function(containerElement, avatarProps, size) {
+  containerElement.width = size;
+  containerElement.height = size;
+
+  containerElement.appendChild(getSVG(avatarProps, size))
+}
+
+Ravatar.getSVG = function(avatarProps, size) {
   // https://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-on-html-canvas/7838871#7838871
   function roundRect(context, x, y, w, h, r, color = 'red') {
 
@@ -196,8 +203,6 @@ Ravatar.renderSVG = function(containerElement, avatarProps, size) {
     }
   }
 
-  containerElement.width = size;
-  containerElement.height = size;
   let context = document.createElementNS('http://www.w3.org/2000/svg','svg');
   let defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
 
@@ -207,8 +212,8 @@ Ravatar.renderSVG = function(containerElement, avatarProps, size) {
   context.appendChild(defs)
 
   // Calculate some stuff
-  const padding = containerElement.width / 6; // 1/6 of each side is padding totalling 1/3 of the canvas width
-  let length = 4 * (containerElement.width / 6); // 4/6 or 2/3 of the area is for the glyph
+  const padding = size / 6; // 1/6 of each side is padding totalling 1/3 of the canvas width
+  let length = 4 * (size / 6); // 4/6 or 2/3 of the area is for the glyph
   // Take the length and divide into 3 sections since 3 lines
   // A quarter of each trine is for margin,
   // but since the margin on the last line is not needed, add that back to the other two margins using *(3/2)
@@ -251,10 +256,10 @@ Ravatar.renderSVG = function(containerElement, avatarProps, size) {
     defs.appendChild(backgroundGradient)
 
     if (avatarProps.roundedBg) {
-      roundRect(context, 0, 0, containerElement.width, containerElement.width, width / 2, "url(#backgroundGradient)");
+      roundRect(context, 0, 0, size, size, width / 2, "url(#backgroundGradient)");
     }
     else {
-      roundRect(context, 0, 0, containerElement.width, containerElement.width, 0, "url(#backgroundGradient)");
+      roundRect(context, 0, 0, size, size, 0, "url(#backgroundGradient)");
     }
   }
 
@@ -388,8 +393,7 @@ Ravatar.renderSVG = function(containerElement, avatarProps, size) {
     }
   }
 
-  containerElement.appendChild(context)
-
+  return context
 };
 
 Ravatar.render = function(canvasElement, avatarProps, size) {
