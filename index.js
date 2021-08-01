@@ -12,7 +12,7 @@ function xmur3(str) {
 
 function sfc32(a, b, c, d) {
   return function() {
-    a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+    a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0;
     var t = (a + b) | 0;
     a = b ^ b >>> 9;
     b = c + (c << 3) | 0;
@@ -130,7 +130,7 @@ Ravatar.generate = function(seedStr) {
   // Seed and make a PRNGing function
   let seedFunc = xmur3(seedStr);
   let randFunc = sfc32(seedFunc(), seedFunc(), seedFunc(), seedFunc());
-  
+
   // Generate properties of the avatar
   let avatarProps = { };
   avatarProps.roundedBg = true;
@@ -438,7 +438,7 @@ Ravatar.render = function(canvasElement, avatarProps, size) {
   // When there's a line and a space on the same row, the length of the line is different
   // Use (2/3) as a base then subtract half the length of the margin that would be included
   const halfLineLength = length * (2/3) - ((1/2) * (length / 3 / 4));
-  
+
   // Render the background gradient
   if (avatarProps.hasBg) {
     let backgroundGradient = context.createLinearGradient(0, canvasElement.width, canvasElement.width, 0);
