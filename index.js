@@ -159,6 +159,13 @@ Ravatar.generate = function(seedStr) {
   return avatarProps;
 };
 
+Ravatar.renderScaled = function(containerElement, avatarProps, size, scale) {
+  containerElement.style.width = size
+  containerElement.style.height = size
+
+  Ravatar.render(containerElement, avatarProps, size * scale)
+}
+
 Ravatar.render = function(canvasElement, avatarProps, size) {
   // https://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-on-html-canvas/7838871#7838871
   function roundRect(context, x, y, w, h, r) {
